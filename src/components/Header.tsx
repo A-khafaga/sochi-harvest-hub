@@ -25,7 +25,7 @@ const Header = () => {
     <>
       <TopBar />
       <header className="bg-white shadow-sm border-b">
-      <div className="container mx-auto px-4 h-20 md:h-[150px] flex items-center justify-between">
+      <div className="px-4 h-20 md:h-[150px] flex items-center justify-between">
         {/* Left: Logo */}
         <div className="flex items-center">
           <a href="#home" className="flex items-center gap-2">
@@ -101,7 +101,7 @@ const Header = () => {
       {/* Mobile Navigation */}
       {isOpen && (
         <div className="md:hidden bg-white border-t">
-          <nav className="container mx-auto px-4 py-4 space-y-4">
+          <nav className="px-4 py-4 space-y-4">
             {navItems.map((item) => (
               <a
                 key={item.name}

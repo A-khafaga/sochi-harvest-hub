@@ -32,13 +32,13 @@ const Hero = () => {
 
   return (
     <section id="home" className="relative bg-cover bg-center h-[600px] md:h-[700px]" style={{ backgroundImage: `url(${images[current]})` }}>
-      <div className="absolute inset-0 bg-black/30"></div>
+      <div className="absolute inset-0 "></div>
 
       {/* Overlay hero graphic and buttons */}
       <div className="absolute inset-0 flex items-center justify-start pl-6 md:pl-12 z-10">
         <div className="relative pointer-events-none">
           <img src={heroOverlay} alt="" aria-hidden="true" className="w-[260px] md:w-[360px] lg:w-[420px] h-auto object-contain" />
-          <div className="absolute bottom-20 left-1/2 -translate-x-1/2 pointer-events-auto flex justify-center items-center gap-3 z-20">
+          <div className="absolute bottom-20 left-1/2 -translate-x-1/2 pointer-events-auto hidden md:flex justify-center items-center gap-3 z-20">
             <Button onClick={handleGetStarted} className="bg-green-600 hover:bg-green-700 text-white pt-3 px-5 ">
               Get Started
             </Button>
@@ -50,7 +50,7 @@ const Hero = () => {
       </div>
 
       {/* Left controls */}
-      <div className="absolute left-4 top-1/2 -translate-y-1/2 flex flex-col gap-3 z-20">
+      <div className="absolute left-4 top-1/2 -translate-y-1/2 hidden md:flex flex-col gap-3 z-20">
         <button aria-label="Previous" onClick={prev} className="h-10 w-10 rounded-full bg-white/80 hover:bg-white text-gray-800 shadow flex items-center justify-center">
           <ChevronLeft className="h-5 w-5" />
         </button>

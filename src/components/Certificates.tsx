@@ -15,7 +15,7 @@ const Certificates = () => {
 
   return (
     <section id="certificates" className="bg-gray-50 py-16">
-      <div className="container mx-auto px-4 text-center">
+      <div className="px-4 text-center">
         <h2 className="text-4xl font-bold text-green-600 mb-16">TRUST CERTIFICATES</h2>
         
         <div className="grid grid-cols-2 md:grid-cols-5 gap-8 mb-20">
