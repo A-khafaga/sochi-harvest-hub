@@ -1,11 +1,14 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { Button } from "@/components/ui/button";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Search } from "lucide-react";
 import TopBar from "./TopBar";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [openMenu, setOpenMenu] = useState<null | "fresh" | "frozen">(null);
+
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
 
   const navItems = [
     { name: "HOME", href: "#home" },
@@ -20,6 +23,16 @@ const Header = () => {
   const frozenProducts = [
     "Strawberry","Mango","Apricots","Figs","Peach","Blueberries","Pomegranates Kernels","Artichokes","Green Beans","Broccoli Florets","Cauliflower Florets","Green Peas","Mixed Veggies","Carrots","Onions","Pepper","Sweet Potatoes","Okra","Spinach","Molokhia"
   ];
+
+  const allProducts = useMemo(() => [
+    ...freshProducts.map(name => ({ name, type: 'fresh' as const })),
+    ...frozenProducts.map(name => ({ name, type: 'frozen' as const })),
+  ], []);
+
+  const searchResults = useMemo(() => {
+    if (searchTerm.trim().length < 2) return [];
+    return allProducts.filter(p => p.name.toLowerCase().includes(searchTerm.toLowerCase()));
+  }, [searchTerm, allProducts]);
 
   return (
     <>
@@ -86,6 +99,18 @@ const Header = () => {
               </a>
             ))}
           </nav>
+
+          {/* Search Input (Desktop) */}
+          <Button
+            variant="ghost"
+            size="icon"
+            className="hidden md:block text-gray-700 hover:text-green-600 transition-colors"
+            onClick={() => setIsSearchOpen(true)}
+            aria-label="Open search"
+          >
+            <Search className="h-5 w-5" />
+          </Button>
+
           {/* Mobile menu button */}
           <Button
             variant="ghost"
@@ -112,7 +137,63 @@ const Header = () => {
                 {item.name}
               </a>
             ))}
+            <button
+              onClick={() => {
+                setIsOpen(false);
+                setIsSearchOpen(true);
+              }}
+              className="flex items-center w-full text-left text-gray-700 hover:text-green-600 transition-colors font-medium text-sm uppercase tracking-wide"
+            >
+              Search
+            </button>
           </nav>
+        </div>
+      )}
+
+      {/* Search Overlay */}
+      {isSearchOpen && (
+        <div className="fixed inset-0 bg-white/95 backdrop-blur-sm z-[100] animate-in fade-in-0">
+          <div className="container mx-auto max-w-2xl pt-10 md:pt-20">
+            <div className="flex items-center justify-end">
+              <Button variant="ghost" size="icon" onClick={() => { setIsSearchOpen(false); setSearchTerm(""); }} aria-label="Close search">
+                <X className="h-6 w-6" />
+              </Button>
+            </div>
+            <div className="relative mt-6">
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+              <input
+                type="text"
+                placeholder="Search for fruits and vegetables..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="w-full rounded-lg border-b-2 border-gray-300 bg-transparent py-3 pl-12 pr-4 text-lg focus:outline-none focus:border-green-600"
+                autoFocus
+              />
+            </div>
+            <div className="mt-6 max-h-[60vh] overflow-y-auto">
+              {searchTerm.length > 1 && searchResults.length > 0 && (
+                <ul className="space-y-2 p-2">
+                  {searchResults.map(product => (
+                    <li key={`${product.type}-${product.name}`}>
+                      <a 
+                        href={`/products/${product.type}/${product.name.toLowerCase().replace(/\s+/g, "-")}`}
+                        className="block p-4 rounded-lg hover:bg-gray-100 transition-colors"
+                        onClick={() => { setIsSearchOpen(false); setSearchTerm(""); }}
+                      >
+                        <span className="font-medium text-gray-800">{product.name}</span>
+                        <span className={`ml-3 text-xs uppercase font-semibold rounded-full px-2 py-1 ${product.type === 'fresh' ? 'bg-green-100 text-green-800' : 'bg-blue-100 text-blue-800'}`}>
+                          {product.type}
+                        </span>
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              )}
+              {searchTerm.length > 1 && searchResults.length === 0 && (
+                <p className="text-center text-gray-500 mt-8">No products found for "{searchTerm}".</p>
+              )}
+            </div>
+          </div>
         </div>
       )}
     </header>

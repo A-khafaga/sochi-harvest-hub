@@ -67,13 +67,13 @@ const Products = () => {
               aria-hidden="true"
             >
               <span
-                className="text-[64px] xs:text-[100px] sm:text-[120px] md:text-[160px] font-extrabold text-gray-200 opacity-40 leading-none -translate-y-[12px]"
+                className="text-[64px] xs:text-[100px] sm:text-[120px] md:text-[160px] font-extrabold text-gray-200 opacity-40 leading-none -translate-y-1"
                 style={{ fontFamily: "Cinzel, serif" }}
               >
                 OUR
               </span>
               <span
-                className="text-[64px] xs:text-[100px] sm:text-[120px] md:text-[160px] font-extrabold text-gray-200 opacity-40 leading-none translate-y-[12px]"
+                className="text-[64px] xs:text-[100px] sm:text-[120px] md:text-[160px] font-extrabold text-gray-200 opacity-40 leading-none translate-y-1"
                 style={{ fontFamily: "Cinzel, serif" }}
               >
                 MARKET

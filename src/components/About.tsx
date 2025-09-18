@@ -9,14 +9,14 @@ const About = () => {
   return (
     <>
       {/* Vision, Mission, Values Section */}
-      <section className="bg-green-600 py-20">
+      <section className="bg-green-600 py-20 ">
         <div className="px-4">
-          <div className="grid md:grid-cols-3 gap-16 text-white">
+          <div className="grid md:grid-cols-3 gap-16 text-white ">
             <div className="text-center pb-12 md:pb-0 border-b-4 md:border-b-0 md:border-r-4 border-white/50 md:pr-8">
               <div className="flex justify-center mb-6">
                 <img src={visionImage} alt="Vision" className="w-16 h-16 rounded-full object-cover" />
               </div>
-              <h3 className="text-2xl font-bold mb-6">VISION</h3>
+              <h3 className="text-2xl font-bold mb-6 ">VISION</h3>
               <p className="text-green-100 text-center leading-relaxed max-w-xs mx-auto">
                 To become a leading global agricultural exporter, recognized for our commitment to quality, sustainability, and lasting partnerships.
               </p>

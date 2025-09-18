@@ -31,7 +31,8 @@ const Certificates = () => {
           ))}
         </div>
 
-        {/* Explore Section */}
+        {/* Explore Section (commented out) */}
+        {/*
         <div className="text-center mb-20">
           <h2 className="text-4xl font-bold text-gray-800 mb-8">Explore</h2>
           <div className="max-w-2xl mx-auto">
@@ -40,8 +41,10 @@ const Certificates = () => {
             </div>
           </div>
         </div>
+        */}
 
-        {/* SOCHI Agricultural Products */}
+        {/* SOCHI Agricultural Products (commented out) */}
+        {/*
         <div className="text-center">
           <h2 className="text-4xl font-bold text-gray-800 mb-8">SOCHI Agricultural Products</h2>
           <div className="max-w-4xl mx-auto">
@@ -50,6 +53,7 @@ const Certificates = () => {
             </div>
           </div>
         </div>
+        */}
       </div>
     </section>
   );

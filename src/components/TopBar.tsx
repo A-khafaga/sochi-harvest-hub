@@ -1,4 +1,4 @@
-import { Mail, MapPin, Facebook, Instagram, Twitter, Linkedin, Youtube } from "lucide-react";
+import { Mail, MapPin, Facebook, Instagram, Linkedin } from "lucide-react";
 
 const TopBar = () => {
   return (
@@ -20,20 +20,14 @@ const TopBar = () => {
 
         {/* Social Media Icons */}
         <div className="flex items-center space-x-4">
-          <a href="#" className="hover:text-green-400 transition-colors" aria-label="Facebook">
+          <a href="https://www.facebook.com/profile.php?id=61573912655640" target="_blank" rel="noopener noreferrer" className="hover:text-green-400 transition-colors" aria-label="Facebook">
             <Facebook className="h-4 w-4" />
           </a>
-          <a href="#" className="hover:text-green-400 transition-colors" aria-label="Instagram">
+          <a href="https://www.instagram.com/sochiagricultural/" target="_blank" rel="noopener noreferrer" className="hover:text-green-400 transition-colors" aria-label="Instagram">
             <Instagram className="h-4 w-4" />
           </a>
-          <a href="#" className="hover:text-green-400 transition-colors" aria-label="Twitter">
-            <Twitter className="h-4 w-4" />
-          </a>
-          <a href="#" className="hover:text-green-400 transition-colors" aria-label="LinkedIn">
+          <a href="https://www.linkedin.com/company/sochi-agricultural" target="_blank" rel="noopener noreferrer" className="hover:text-green-400 transition-colors" aria-label="LinkedIn">
             <Linkedin className="h-4 w-4" />
-          </a>
-          <a href="#" className="hover:text-green-400 transition-colors" aria-label="YouTube">
-            <Youtube className="h-4 w-4" />
           </a>
         </div>
       </div>
