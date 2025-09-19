@@ -1,4 +1,5 @@
 import { Facebook, Instagram, Linkedin, Mail, MapPin } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -30,12 +31,12 @@ const Footer = () => {
           <div>
             <h3 className="text-xl font-bold mb-6">Explore</h3>
             <nav className="space-y-3">
-              <a href="/" className="block hover:text-green-200 transition-colors">Home</a>
-              <a href="/#about" className="block hover:text-green-200 transition-colors">About Us</a>
-              <a href="/#products" className="block hover:text-green-200 transition-colors">Products</a>
-              <a href="/#certificates" className="block hover:text-green-200 transition-colors">Certificates</a>
-              <a href="/calendar" className="block hover:text-green-200 transition-colors">Calendar</a>
-              <a href="/#contact" className="block hover:text-green-200 transition-colors">Contact Us</a>
+              <Link to="/" className="block hover:text-green-200 transition-colors">Home</Link>
+              <Link to="/#about" className="block hover:text-green-200 transition-colors">About Us</Link>
+              <Link to="/#products" className="block hover:text-green-200 transition-colors">Products</Link>
+              <Link to="/#certificates" className="block hover:text-green-200 transition-colors">Certificates</Link>
+              <Link to="/calendar" className="block hover:text-green-200 transition-colors">Calendar</Link>
+              <Link to="/#contact" className="block hover:text-green-200 transition-colors">Contact Us</Link>
             </nav>
           </div>
 

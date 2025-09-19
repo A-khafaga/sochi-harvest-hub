@@ -1,16 +1,16 @@
 import globalGapImage from "@/assets/cert-globalgap.jpg";
-import sedexImage from "@/assets/cert-smeta.jpg";
-import smetaImage from "@/assets/cert-sedex.jpg";
+import smetaImage from "@/assets/cert-smeta.jpg";
+import sedexImage from "@/assets/cert-sedex.jpg";
 import graspImage from "@/assets/cert-grasp.jpg";
 import brcImage from "@/assets/cert-brc.jpg";
 
 const Certificates = () => {
   const certificates = [
-    { name: "GRASP", image: globalGapImage },
-    { name: "SMETA", image: sedexImage },
-    { name: "SMETA", image: sedexImage },
-    { name: "GLOBALG.A.P.", image: graspImage },
-    { name: "BRC", image: brcImage }
+    { name: "GLOBALG.A.P.", image: globalGapImage },
+    { name: "GRASP", image: graspImage },
+    { name: "SMETA", image: smetaImage },
+    { name: "SEDEX", image: sedexImage },
+    { name: "BRC", image: brcImage },
   ];
 
   return (
@@ -20,7 +20,7 @@ const Certificates = () => {
         
         <div className="grid grid-cols-2 md:grid-cols-5 gap-8 mb-20">
           {certificates.map((cert, index) => (
-            <div key={index} className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow">
+            <div key={`${cert.name}-${index}`} className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow">
               <img 
                 src={cert.image} 
                 alt={cert.name}

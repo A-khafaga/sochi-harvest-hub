@@ -1,6 +1,7 @@
 import { useState, useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X, Search } from "lucide-react";
+import { Link } from "react-router-dom";
 import TopBar from "./TopBar";
 
 // Product images for mega menu
@@ -67,17 +68,16 @@ const Header = () => {
       <div className="px-4 h-20 md:h-[150px] flex items-center justify-between">
         {/* Left: Logo */}
         <div className="flex items-center">
-          <a href="/" className="flex items-center gap-2">
+          <Link to="/" className="flex items-center gap-2">
             <img src="/0.jpg" alt="SOCHI logo" className="h-16 w-16 md:h-[150px] md:w-[150px]" />
-          </a>
+          </Link>
         </div>  
 
         {/* Right: Navigation (desktop) + Mobile button */}
         <div className="flex items-center space-x-4 md:space-x-6">
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
-            {/* Home */}
-            <a href="/" className="text-gray-700 hover:text-green-600 transition-colors font-medium text-sm uppercase tracking-wide">HOME</a>
+            <Link to="/" className="text-gray-700 hover:text-green-600 transition-colors font-medium text-sm uppercase tracking-wide">HOME</Link>
 
             {/* Products mega menu with Fresh & Frozen */}
             <div
@@ -93,9 +93,9 @@ const Header = () => {
                       <h4 className="text-sm font-semibold text-green-700 mb-4">Fresh</h4>
                       <div className="grid grid-cols-2 gap-3">
                         {freshProducts.map((name) => (
-                          <a 
+                          <Link 
                             key={name} 
-                            href={`/products/fresh/${name.toLowerCase().replace(/\s+/g, "-")}`} 
+                            to={`/products/fresh/${name.toLowerCase().replace(/\s+/g, "-")}`} 
                             className="group relative block rounded-md h-20 flex items-center justify-center p-2 text-center overflow-hidden bg-cover bg-center"
                             style={{ backgroundImage: `url(${getProductImage(name)})` }}
                           >
@@ -103,7 +103,7 @@ const Header = () => {
                             <span className="relative z-10 text-white font-semibold text-sm leading-tight">
                               {name}
                             </span>
-                          </a>
+                          </Link>
                         ))}
                       </div>
                     </div>
@@ -111,9 +111,9 @@ const Header = () => {
                       <h4 className="text-sm font-semibold text-green-700 mb-4">Frozen</h4>
                       <div className="grid grid-cols-2 gap-3">
                         {frozenProducts.map((name) => (
-                          <a 
+                          <Link 
                             key={name} 
-                            href={`/products/frozen/${name.toLowerCase().replace(/\s+/g, "-")}`} 
+                            to={`/products/frozen/${name.toLowerCase().replace(/\s+/g, "-")}`} 
                             className="group relative block rounded-md h-20 flex items-center justify-center p-2 text-center overflow-hidden bg-cover bg-center"
                             style={{ backgroundImage: `url(${getProductImage(name)})` }}
                           >
@@ -121,7 +121,7 @@ const Header = () => {
                             <span className="relative z-10 text-white font-semibold text-sm leading-tight">
                               {name}
                             </span>
-                          </a>
+                          </Link>
                         ))}
                       </div>
                     </div>
@@ -132,13 +132,13 @@ const Header = () => {
 
             {/* Remaining links */}
             {navItems.filter((i) => i.name !== "HOME").map((item) => (
-              <a
+              <Link
                 key={item.name}
-                href={item.href}
+                to={item.href}
                 className="text-gray-700 hover:text-green-600 transition-colors font-medium text-sm uppercase tracking-wide"
               >
                 {item.name}
-              </a>
+              </Link>
             ))}
           </nav>
 
@@ -170,14 +170,14 @@ const Header = () => {
         <div className="md:hidden bg-white border-t">
           <nav className="px-4 py-4 space-y-4">
             {navItems.map((item) => (
-              <a
+              <Link
                 key={item.name}
-                href={item.href}
+                to={item.href}
                 className="block text-gray-700 hover:text-green-600 transition-colors font-medium text-sm uppercase tracking-wide"
                 onClick={() => setIsOpen(false)}
               >
                 {item.name}
-              </a>
+              </Link>
             ))}
             <button
               onClick={() => {
@@ -217,8 +217,8 @@ const Header = () => {
                 <ul className="space-y-2 p-2">
                   {searchResults.map(product => (
                     <li key={`${product.type}-${product.name}`}>
-                      <a 
-                        href={`/products/${product.type}/${product.name.toLowerCase().replace(/\s+/g, "-")}`}
+                      <Link 
+                        to={`/products/${product.type}/${product.name.toLowerCase().replace(/\s+/g, "-")}`}
                         className="block p-4 rounded-lg hover:bg-gray-100 transition-colors"
                         onClick={() => { setIsSearchOpen(false); setSearchTerm(""); }}
                       >
@@ -226,7 +226,7 @@ const Header = () => {
                         <span className={`ml-3 text-xs uppercase font-semibold rounded-full px-2 py-1 ${product.type === 'fresh' ? 'bg-green-100 text-green-800' : 'bg-blue-100 text-blue-800'}`}>
                           {product.type}
                         </span>
-                      </a>
+                      </Link>
                     </li>
                   ))}
                 </ul>

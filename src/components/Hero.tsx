@@ -1,4 +1,4 @@
-import React from "react";
+import { useState, useEffect } from "react";
 import greenhouseImage from "../assets/hero-greenhouse.jpg";
 import workerImage from "../assets/worker-strawberries.jpg";
 import fruitsImage from "../assets/hero-fresh-produce.jpg";
@@ -8,7 +8,7 @@ import { Play, Pause } from "lucide-react";
 
 const Hero = () => {
   const images = [greenhouseImage, workerImage, fruitsImage];
-  const [current, setCurrent] = React.useState(0);
+  const [current, setCurrent] = useState(0);
 
   const handleGetStarted = () => {
     const el = document.getElementById("products");
@@ -17,8 +17,8 @@ const Hero = () => {
     }
   };
 
-  const [isPlaying, setIsPlaying] = React.useState(false);
-  React.useEffect(() => {
+  const [isPlaying, setIsPlaying] = useState(false);
+  useEffect(() => {
     if (!isPlaying) return;
     const id = setInterval(() => {
       setCurrent((idx) => (idx + 1) % images.length);

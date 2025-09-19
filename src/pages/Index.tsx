@@ -10,16 +10,16 @@ import FloatingDownloadButton from "@/components/FloatingDownloadButton";
 const Index = () => {
   return (
     <div className="min-h-screen bg-white">
-      <div className="max-w-7xl mx-auto">
-        <Header />
+      <Header />
+      <main>
         <Hero />
         <About />
         <Products />
         <Certificates />
         <Contact />
-        <Footer />
-        <FloatingDownloadButton />
-      </div>
+      </main>
+      <Footer />
+      <FloatingDownloadButton />
     </div>
   );
 };
