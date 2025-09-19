@@ -1,49 +1,52 @@
 import fruitsImage from "@/assets/fresh-fruits-mix.jpg";
-import visionImage from "@/assets/VISION.jpg";
-import missionImage from "@/assets/MISSION.jpg";
-import valuesImage from "@/assets/VALUES.jpg";
 import whoBg from "@/assets/14-01.jpg";
-import { Leaf, Snowflake, Recycle, Users, Factory, Package, Globe2, ShieldCheck } from "lucide-react";
+import { Leaf, Snowflake, Recycle, Users, Factory, Package, Globe2, ShieldCheck, Target, Goal, Gem } from "lucide-react";
 
 const About = () => {
   return (
     <>
       {/* Vision, Mission, Values Section */}
-      <section className="bg-green-600 py-20 ">
-        <div className="px-4">
-          <div className="grid md:grid-cols-3 gap-16 text-white ">
-            <div className="text-center pb-12 md:pb-0 border-b-4 md:border-b-0 md:border-r-4 border-white/50 md:pr-8">
-              <div className="flex justify-center mb-6">
-                <img src={visionImage} alt="Vision" className="w-16 h-16 rounded-full object-cover" />
-              </div>
-              <h3 className="text-2xl font-bold mb-6 ">VISION</h3>
-              <p className="text-green-100 text-center leading-relaxed max-w-xs mx-auto">
-                To become a leading global agricultural exporter, recognized for our commitment to quality, sustainability, and lasting partnerships.
-              </p>
-            </div>
-            
-            <div className="text-center py-12 md:py-0 border-b-4 md:border-b-0 md:border-r-4 border-white/50 flex flex-col justify-center">
-              <div className="flex justify-center mb-6">
-                <img src={missionImage} alt="Mission" className="w-16 h-16 rounded-full object-cover" />
-              </div>
-              <h3 className="text-2xl font-bold mb-6">MISSION</h3>
-              <p className="text-green-100 text-center leading-relaxed max-w-xs mx-auto">
-                To deliver premium frozen fruits and vegetables from Egypt's fertile lands to global markets, ensuring freshness, safety, and reliability.
-              </p>
-            </div>
-            
-            <div className="text-center pt-12 md:pt-0 flex flex-col justify-center">
-              <div className="flex justify-center mb-6">
-                <img src={valuesImage} alt="Values" className="w-16 h-16 rounded-full object-cover" />
-              </div>
-              <h3 className="text-2xl font-bold mb-6">VALUES</h3>
-              <p className="text-green-100 text-center leading-relaxed max-w-xs mx-auto">
-                Quality First, Freshness Guaranteed, Sustainability, and Customer Focus guide our every action.
-              </p>
-            </div>
+<section className="bg-green-600 py-20 ">
+  <div className="px-4">
+    <div className="grid md:grid-cols-3 gap-16 text-white ">
+      <div className="text-center pb-12 md:pb-0 border-b-4 md:border-b-0 md:border-r-4 border-white/50 md:pr-8">
+        <div className="flex justify-center mb-6">
+          <div className="w-20 h-20 rounded-full bg-white/20 flex items-center justify-center">
+            <Target className="w-10 h-10 text-white" />
           </div>
         </div>
-      </section>
+        <h3 className="text-2xl font-bold mb-6 text-[#a5be3c]">VISION</h3>
+        <p className="text-green-100 text-center leading-relaxed max-w-xs mx-auto">
+          To become a leading global agricultural exporter, recognized for our commitment to quality, sustainability, and lasting partnerships.
+        </p>
+      </div>
+
+      <div className="text-center py-12 md:py-0 border-b-4 md:border-b-0 md:border-r-4 border-white/50 flex flex-col justify-center">
+        <div className="flex justify-center mb-6">
+          <div className="w-20 h-20 rounded-full bg-white/20 flex items-center justify-center">
+            <Goal className="w-10 h-10 text-white" />
+          </div>
+        </div>
+        <h3 className="text-2xl font-bold mb-6 text-[#a5be3c]">MISSION</h3>
+        <p className="text-green-100 text-center leading-relaxed max-w-xs mx-auto">
+          To deliver premium frozen fruits and vegetables from Egypt's fertile lands to global markets, ensuring freshness, safety, and reliability.
+        </p>
+      </div>
+
+      <div className="text-center pt-12 md:pt-0 flex flex-col justify-center">
+        <div className="flex justify-center mb-6">
+          <div className="w-20 h-20 rounded-full bg-white/20 flex items-center justify-center">
+            <Gem className="w-10 h-10 text-white" />
+          </div>
+        </div>
+        <h3 className="text-2xl font-bold mb-6 text-[#a5be3c]">VALUES</h3>
+        <p className="text-green-100 text-center leading-relaxed max-w-xs mx-auto">
+          Quality First, Freshness Guaranteed, Sustainability, and Customer Focus guide our every action.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
 
       {/* Who We Are + Core Values (combined with shared background) */}
       <section id="about" className="py-16 bg-center bg-cover" style={{ backgroundImage: `url(${whoBg})` }}>

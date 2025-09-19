@@ -3,6 +3,14 @@ import { Button } from "@/components/ui/button";
 import { Menu, X, Search } from "lucide-react";
 import TopBar from "./TopBar";
 
+// Product images for mega menu
+import orangeImage from "@/assets/oranges.jpg";
+import strawberryImage from "@/assets/strawberry.jpg";
+import grapesImage from "@/assets/grapes.jpg";
+import mandarinImage from "@/assets/mandarines.jpg";
+import potatoImage from "@/assets/potato.jpg";
+import genericProduceImage from "@/assets/fresh-fruits-mix.jpg"; // Fallback
+
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [openMenu, setOpenMenu] = useState<null | "fresh" | "frozen">(null);
@@ -11,18 +19,36 @@ const Header = () => {
   const [searchTerm, setSearchTerm] = useState("");
 
   const navItems = [
-    { name: "HOME", href: "#home" },
-    { name: "Certificates", href: "#certificates" },
-    { name: "Calendar", href: "#calendar" },
-    { name: "Contact Us", href: "#contact" },
+    { name: "HOME", href: "/" },
+    { name: "Certificates", href: "/#certificates" },
+    { name: "Calendar", href: "/calendar" },
+    { name: "Contact Us", href: "/#contact" },
   ];
 
   const freshProducts = [
-    "Orange","Iceberg","Lime","Lemon","Strawberry","Mango","Pomegranates","Guava","Grapes","Mandarin","Sweet Potaotes","Artichokes","Carrots","Garlics","Onions","Eggplant","Capsicum","Potatoes"
+    "Orange","Iceberg","Lime","Lemon","Strawberry","Mango","Pomegranates","Guava","Grapes","Mandarin","Sweet Potatoes","Artichokes","Carrots","Garlics","Onions","Eggplant","Capsicum","Potatoes"
   ];
   const frozenProducts = [
     "Strawberry","Mango","Apricots","Figs","Peach","Blueberries","Pomegranates Kernels","Artichokes","Green Beans","Broccoli Florets","Cauliflower Florets","Green Peas","Mixed Veggies","Carrots","Onions","Pepper","Sweet Potatoes","Okra","Spinach","Molokhia"
   ];
+
+  const productImageMap: Record<string, string> = {
+    orange: orangeImage,
+    strawberry: strawberryImage,
+    grapes: grapesImage,
+    mandarin: mandarinImage,
+    "sweet potatoes": potatoImage,
+    potatoes: potatoImage,
+    pomegranates: genericProduceImage,
+    mango: genericProduceImage,
+    "pomegranates kernels": genericProduceImage,
+    apricots: genericProduceImage,
+    figs: genericProduceImage,
+    peach: genericProduceImage,
+    blueberries: genericProduceImage,
+  };
+  
+  const getProductImage = (name: string) => productImageMap[name.toLowerCase()] || genericProduceImage;
 
   const allProducts = useMemo(() => [
     ...freshProducts.map(name => ({ name, type: 'fresh' as const })),
@@ -41,7 +67,7 @@ const Header = () => {
       <div className="px-4 h-20 md:h-[150px] flex items-center justify-between">
         {/* Left: Logo */}
         <div className="flex items-center">
-          <a href="#home" className="flex items-center gap-2">
+          <a href="/" className="flex items-center gap-2">
             <img src="/0.jpg" alt="SOCHI logo" className="h-16 w-16 md:h-[150px] md:w-[150px]" />
           </a>
         </div>  
@@ -51,7 +77,7 @@ const Header = () => {
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
             {/* Home */}
-            <a href="#home" className="text-gray-700 hover:text-green-600 transition-colors font-medium text-sm uppercase tracking-wide">HOME</a>
+            <a href="/" className="text-gray-700 hover:text-green-600 transition-colors font-medium text-sm uppercase tracking-wide">HOME</a>
 
             {/* Products mega menu with Fresh & Frozen */}
             <div
@@ -67,8 +93,16 @@ const Header = () => {
                       <h4 className="text-sm font-semibold text-green-700 mb-4">Fresh</h4>
                       <div className="grid grid-cols-2 gap-3">
                         {freshProducts.map((name) => (
-                          <a key={name} href={`/products/fresh/${name.toLowerCase().replace(/\s+/g, "-")}`} className="group block rounded-md border bg-white hover:bg-green-50 p-3 text-sm text-gray-700 hover:text-green-700 transition">
-                            {name}
+                          <a 
+                            key={name} 
+                            href={`/products/fresh/${name.toLowerCase().replace(/\s+/g, "-")}`} 
+                            className="group relative block rounded-md h-20 flex items-center justify-center p-2 text-center overflow-hidden bg-cover bg-center"
+                            style={{ backgroundImage: `url(${getProductImage(name)})` }}
+                          >
+                            <div className="absolute inset-0 bg-black/40 group-hover:bg-black/60 transition-colors duration-300"></div>
+                            <span className="relative z-10 text-white font-semibold text-sm leading-tight">
+                              {name}
+                            </span>
                           </a>
                         ))}
                       </div>
@@ -77,8 +111,16 @@ const Header = () => {
                       <h4 className="text-sm font-semibold text-green-700 mb-4">Frozen</h4>
                       <div className="grid grid-cols-2 gap-3">
                         {frozenProducts.map((name) => (
-                          <a key={name} href={`/products/frozen/${name.toLowerCase().replace(/\s+/g, "-")}`} className="group block rounded-md border bg-white hover:bg-green-50 p-3 text-sm text-gray-700 hover:text-green-700 transition">
-                            {name}
+                          <a 
+                            key={name} 
+                            href={`/products/frozen/${name.toLowerCase().replace(/\s+/g, "-")}`} 
+                            className="group relative block rounded-md h-20 flex items-center justify-center p-2 text-center overflow-hidden bg-cover bg-center"
+                            style={{ backgroundImage: `url(${getProductImage(name)})` }}
+                          >
+                            <div className="absolute inset-0 bg-black/40 group-hover:bg-black/60 transition-colors duration-300"></div>
+                            <span className="relative z-10 text-white font-semibold text-sm leading-tight">
+                              {name}
+                            </span>
                           </a>
                         ))}
                       </div>

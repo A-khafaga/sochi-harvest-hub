@@ -30,11 +30,12 @@ const Footer = () => {
           <div>
             <h3 className="text-xl font-bold mb-6">Explore</h3>
             <nav className="space-y-3">
-              <a href="#home" className="block hover:text-green-200 transition-colors">Home</a>
-              <a href="#about" className="block hover:text-green-200 transition-colors">About Us</a>
-              <a href="#products" className="block hover:text-green-200 transition-colors">Products</a>
-              <a href="#certificates" className="block hover:text-green-200 transition-colors">Certificates</a>
-              <a href="#contact" className="block hover:text-green-200 transition-colors">Contact Us</a>
+              <a href="/" className="block hover:text-green-200 transition-colors">Home</a>
+              <a href="/#about" className="block hover:text-green-200 transition-colors">About Us</a>
+              <a href="/#products" className="block hover:text-green-200 transition-colors">Products</a>
+              <a href="/#certificates" className="block hover:text-green-200 transition-colors">Certificates</a>
+              <a href="/calendar" className="block hover:text-green-200 transition-colors">Calendar</a>
+              <a href="/#contact" className="block hover:text-green-200 transition-colors">Contact Us</a>
             </nav>
           </div>
 
