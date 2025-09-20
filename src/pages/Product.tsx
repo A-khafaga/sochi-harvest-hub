@@ -1,4 +1,5 @@
 import { useParams, Link } from "react-router-dom";
+import { useEffect } from "react";
 
 const humanize = (text: string) =>
   text
@@ -7,6 +8,10 @@ const humanize = (text: string) =>
 
 const Product = () => {
   const { category = "", slug = "" } = useParams();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <section className="min-h-screen bg-white py-16">
@@ -42,5 +47,3 @@ const Product = () => {
 };
 
 export default Product;
-
-

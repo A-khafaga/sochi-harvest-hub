@@ -3,6 +3,9 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+import FloatingDownloadButton from "@/components/FloatingDownloadButton";
 import Index from "@/pages/Index";
 import NotFound from "@/pages/NotFound";
 import Product from "@/pages/Product";
@@ -16,13 +19,17 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/calendar" element={<CalendarPage />} />
-          <Route path="/products/:category/:slug" element={<Product />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+        <Header />
+        <main>
+          <Routes>
+            <Route path="/" element={<Index />} />
+            <Route path="/calendar" element={<CalendarPage />} />
+            <Route path="/products/:category/:slug" element={<Product />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </main>
+        <Footer />
+        <FloatingDownloadButton />
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>

@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Menu, X, Search } from "lucide-react";
 import { Link } from "react-router-dom";
 import TopBar from "./TopBar";
+import { useHashLink } from "@/hooks/useHashLink";
 
 // Product images for mega menu
 import orangeImage from "@/assets/oranges.jpg";
@@ -20,6 +21,8 @@ const Header = () => {
 
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
+
+  const handleHashLink = useHashLink();
 
   const navItems = [
     { name: "HOME", href: "/" },
@@ -177,9 +180,7 @@ const Header = () => {
                 className="text-gray-700 hover:text-green-600 transition-colors font-medium text-sm uppercase tracking-wide"
                 onClick={(e) => {
                   if (item.href.startsWith('/#')) {
-                    e.preventDefault();
-                    const targetId = item.href.substring(2);
-                    document.getElementById(targetId)?.scrollIntoView({ behavior: 'smooth' });
+                    handleHashLink(e, item.href);
                   }
                 }}
               >
@@ -223,9 +224,7 @@ const Header = () => {
                 onClick={(e) => {
                   setIsOpen(false);
                   if (item.href.startsWith('/#')) {
-                    e.preventDefault();
-                    const targetId = item.href.substring(2);
-                    document.getElementById(targetId)?.scrollIntoView({ behavior: 'smooth' });
+                    handleHashLink(e, item.href);
                   }
                 }}
               >
