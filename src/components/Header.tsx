@@ -14,7 +14,9 @@ import genericProduceImage from "@/assets/fresh-fruits-mix.jpg"; // Fallback
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [openMenu, setOpenMenu] = useState<null | "fresh" | "frozen">(null);
+  const [isProductMenuOpen, setIsProductMenuOpen] = useState(false);
+  const [menuTimeout, setMenuTimeout] = useState<NodeJS.Timeout | null>(null);
+  const [activeTab, setActiveTab] = useState<'fresh' | 'frozen' | 'pickled'>('fresh');
 
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
@@ -31,6 +33,9 @@ const Header = () => {
   ];
   const frozenProducts = [
     "Strawberry","Mango","Apricots","Figs","Peach","Blueberries","Pomegranates Kernels","Artichokes","Green Beans","Broccoli Florets","Cauliflower Florets","Green Peas","Mixed Veggies","Carrots","Onions","Pepper","Sweet Potatoes","Okra","Spinach","Molokhia"
+  ];
+  const pickledProducts = [
+    "Cucumber"
   ];
 
   const productImageMap: Record<string, string> = {
@@ -54,6 +59,7 @@ const Header = () => {
   const allProducts = useMemo(() => [
     ...freshProducts.map(name => ({ name, type: 'fresh' as const })),
     ...frozenProducts.map(name => ({ name, type: 'frozen' as const })),
+    ...pickledProducts.map(name => ({ name, type: 'pickled' as const })),
   ], []);
 
   const searchResults = useMemo(() => {
@@ -61,6 +67,20 @@ const Header = () => {
     return allProducts.filter(p => p.name.toLowerCase().includes(searchTerm.toLowerCase()));
   }, [searchTerm, allProducts]);
 
+  const handleMenuEnter = () => {
+    if (menuTimeout) {
+      clearTimeout(menuTimeout);
+      setMenuTimeout(null);
+    }
+    setIsProductMenuOpen(true);
+  };
+
+  const handleMenuLeave = () => {
+    const timeoutId = setTimeout(() => {
+      setIsProductMenuOpen(false);
+    }, 200); // 200ms delay before closing
+    setMenuTimeout(timeoutId);
+  };
   return (
     <>
       <TopBar />
@@ -82,49 +102,68 @@ const Header = () => {
             {/* Products mega menu with Fresh & Frozen */}
             <div
               className="relative"
-              onMouseEnter={() => setOpenMenu("fresh")}
-              onMouseLeave={() => setOpenMenu(null)}
+              onMouseEnter={handleMenuEnter}
+              onMouseLeave={handleMenuLeave}
             >
               <button className="text-gray-700 hover:text-green-600 transition-colors font-medium text-sm uppercase tracking-wide">Products</button>
-              {openMenu && (
-                <div className="absolute left-1/2 -translate-x-1/2 top-full mt-3 w-[calc(100vw-2rem)] max-w-[860px] max-h-[70vh] overflow-auto bg-white border shadow-lg rounded-lg p-6 z-50" onMouseEnter={() => setOpenMenu(openMenu)} onMouseLeave={() => setOpenMenu(null)}>
-                  <div className="grid grid-cols-2 gap-6">
-                    <div>
-                      <h4 className="text-sm font-semibold text-green-700 mb-4">Fresh</h4>
-                      <div className="grid grid-cols-2 gap-3">
-                        {freshProducts.map((name) => (
+              {isProductMenuOpen && (
+                <div className="absolute left-1/2 -translate-x-1/2 top-full mt-3 w-[calc(100vw-2rem)] max-w-4xl bg-white border shadow-lg rounded-lg z-50" >
+                  {/* Tabs */}
+                  <div className="flex border-b">
+                    <button
+                      onClick={() => setActiveTab('fresh')}
+                      className={`flex-1 p-4 font-semibold text-sm uppercase tracking-wide transition-colors ${activeTab === 'fresh' ? 'text-green-600 border-b-2 border-green-600' : 'text-gray-500 hover:bg-gray-50'}`}
+                    >
+                      Fresh
+                    </button>
+                    <button
+                      onClick={() => setActiveTab('frozen')}
+                      className={`flex-1 p-4 font-semibold text-sm uppercase tracking-wide transition-colors ${activeTab === 'frozen' ? 'text-green-600 border-b-2 border-green-600' : 'text-gray-500 hover:bg-gray-50'}`}
+                    >
+                      Frozen
+                    </button>
+                    <button
+                      onClick={() => setActiveTab('pickled')}
+                      className={`flex-1 p-4 font-semibold text-sm uppercase tracking-wide transition-colors ${activeTab === 'pickled' ? 'text-green-600 border-b-2 border-green-600' : 'text-gray-500 hover:bg-gray-50'}`}
+                    >
+                      Pickled
+                    </button>
+                  </div>
+                  
+                  {/* Tab Content */}
+                  <div className="p-6 max-h-[60vh] overflow-y-auto">
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                      {(() => {
+                        const productsToDisplay =
+                          activeTab === 'fresh' ? freshProducts :
+                          activeTab === 'frozen' ? frozenProducts :
+                          pickledProducts;
+
+                        return productsToDisplay.map((name) => (
                           <Link 
-                            key={name} 
-                            to={`/products/fresh/${name.toLowerCase().replace(/\s+/g, "-")}`} 
-                            className="group relative block rounded-md h-20 flex items-center justify-center p-2 text-center overflow-hidden bg-cover bg-center"
+                            key={name}
+                            to={`/products/${activeTab}/${name.toLowerCase().replace(/\s+/g, "-")}`} 
+                            className="group relative block rounded-md h-24 flex items-center justify-center p-2 text-center overflow-hidden bg-cover bg-center"
                             style={{ backgroundImage: `url(${getProductImage(name)})` }}
+                            onClick={() => setIsProductMenuOpen(false)}
                           >
                             <div className="absolute inset-0 bg-black/40 group-hover:bg-black/60 transition-colors duration-300"></div>
                             <span className="relative z-10 text-white font-semibold text-sm leading-tight">
                               {name}
                             </span>
                           </Link>
-                        ))}
-                      </div>
+                        ));
+                      })()}
                     </div>
-                    <div>
-                      <h4 className="text-sm font-semibold text-green-700 mb-4">Frozen</h4>
-                      <div className="grid grid-cols-2 gap-3">
-                        {frozenProducts.map((name) => (
-                          <Link 
-                            key={name} 
-                            to={`/products/frozen/${name.toLowerCase().replace(/\s+/g, "-")}`} 
-                            className="group relative block rounded-md h-20 flex items-center justify-center p-2 text-center overflow-hidden bg-cover bg-center"
-                            style={{ backgroundImage: `url(${getProductImage(name)})` }}
-                          >
-                            <div className="absolute inset-0 bg-black/40 group-hover:bg-black/60 transition-colors duration-300"></div>
-                            <span className="relative z-10 text-white font-semibold text-sm leading-tight">
-                              {name}
-                            </span>
-                          </Link>
-                        ))}
-                      </div>
-                    </div>
+                    {(activeTab === 'fresh' && freshProducts.length === 0) && (
+                        <p className="col-span-full text-center text-gray-500 py-8">No fresh products available at the moment.</p>
+                    )}
+                    {(activeTab === 'frozen' && frozenProducts.length === 0) && (
+                        <p className="col-span-full text-center text-gray-500 py-8">No frozen products available at the moment.</p>
+                    )}
+                    {(activeTab === 'pickled' && pickledProducts.length === 0) && (
+                        <p className="col-span-full text-center text-gray-500 py-8">No pickled products available at the moment.</p>
+                    )}
                   </div>
                 </div>
               )}
@@ -136,8 +175,15 @@ const Header = () => {
                 key={item.name}
                 to={item.href}
                 className="text-gray-700 hover:text-green-600 transition-colors font-medium text-sm uppercase tracking-wide"
+                onClick={(e) => {
+                  if (item.href.startsWith('/#')) {
+                    e.preventDefault();
+                    const targetId = item.href.substring(2);
+                    document.getElementById(targetId)?.scrollIntoView({ behavior: 'smooth' });
+                  }
+                }}
               >
-                {item.name}
+                 {item.name}
               </Link>
             ))}
           </nav>
@@ -174,7 +220,14 @@ const Header = () => {
                 key={item.name}
                 to={item.href}
                 className="block text-gray-700 hover:text-green-600 transition-colors font-medium text-sm uppercase tracking-wide"
-                onClick={() => setIsOpen(false)}
+                onClick={(e) => {
+                  setIsOpen(false);
+                  if (item.href.startsWith('/#')) {
+                    e.preventDefault();
+                    const targetId = item.href.substring(2);
+                    document.getElementById(targetId)?.scrollIntoView({ behavior: 'smooth' });
+                  }
+                }}
               >
                 {item.name}
               </Link>
@@ -223,7 +276,11 @@ const Header = () => {
                         onClick={() => { setIsSearchOpen(false); setSearchTerm(""); }}
                       >
                         <span className="font-medium text-gray-800">{product.name}</span>
-                        <span className={`ml-3 text-xs uppercase font-semibold rounded-full px-2 py-1 ${product.type === 'fresh' ? 'bg-green-100 text-green-800' : 'bg-blue-100 text-blue-800'}`}>
+                        <span className={`ml-3 text-xs uppercase font-semibold rounded-full px-2 py-1 ${
+                          product.type === 'fresh' ? 'bg-green-100 text-green-800' : 
+                          product.type === 'frozen' ? 'bg-blue-100 text-blue-800' :
+                          'bg-yellow-100 text-yellow-800'
+                        }`}>
                           {product.type}
                         </span>
                       </Link>
