@@ -141,3 +141,18 @@ All colors MUST be HSL.
     box-shadow: var(--shadow-product);
   }
 }
+
+@keyframes fall {
+  0% {
+    transform: translateY(0) rotate(0deg);
+  }
+  100% {
+    transform: translateY(200vh) rotate(360deg);
+  }
+}
+
+.animate-fall {
+  animation-name: fall;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}

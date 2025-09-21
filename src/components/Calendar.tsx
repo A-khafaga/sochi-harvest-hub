@@ -1,5 +1,12 @@
-import { Grape, Citrus, Apple, Carrot, Leaf, Snowflake, LucideProps } from 'lucide-react';
+import { Grape, Citrus, Apple, Carrot, Leaf, Snowflake, LucideProps, Package } from 'lucide-react';
 import { ElementType } from 'react';
+import pomegranateIcon from '@/assets/aa-removebg-preview (1).png';
+import strawberryIcon from '@/assets/strawberry-4-128.ico';
+import garlicIcon from '@/assets/Garlic (2).png';
+import onionIcon from '@/assets/11.png';
+import artichokeIcon from '@/assets/22.png';
+import mangoIcon from '@/assets/33.png';
+import potatoIcon from '@/assets/44.png';
 
 const productAvailability = [
   { name: "Strawberry (Fresh)", months: [1, 2, 3, 4], type: 'fresh' }, // Feb - May
@@ -14,26 +21,28 @@ const productAvailability = [
   { name: "Garlic", months: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], type: 'fresh' },
   { name: "Potatoes", months: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], type: 'fresh' },
   { name: "All Frozen Products", months: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], type: 'frozen' },
+  { name: "All Pickled Products", months: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], type: 'pickled' },
 ];
 
 const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
-const productIcons: { [key: string]: ElementType<LucideProps> } = {
+const productIcons: { [key: string]: ElementType<LucideProps> | string } = {
     grape: Grape,
     orange: Citrus,
     mandarin: Citrus,
-    strawberry: Apple, // Fallback
-    pomegranate: Apple, // Fallback
-    mango: Apple, // Fallback
+    strawberry: strawberryIcon,
+    pomegranate: pomegranateIcon,
+    mango: mangoIcon,
     'sweet potato': Carrot,
-    artichoke: Leaf,
-    onion: Leaf,
-    garlic: Leaf,
-    potato: Leaf,
+    artichoke: artichokeIcon,
+    onion: onionIcon,
+    garlic: garlicIcon,
+    potato: potatoIcon,
     frozen: Snowflake,
+    pickled: Package,
 };
 
-const getProductIcon = (productName: string): ElementType<LucideProps> => {
+const getProductIcon = (productName: string): ElementType<LucideProps> | string => {
     const lowerName = productName.toLowerCase();
     for (const key in productIcons) {
         if (lowerName.includes(key)) return productIcons[key];
@@ -73,11 +82,22 @@ const Calendar = () => {
                     {months.map((_, monthIdx) => (
                       <div key={monthIdx} className="flex items-center justify-center border-l border-gray-200">
                         {product.months.includes(monthIdx) && (
-                          <div className={`w-full h-full flex items-center justify-center ${product.type === 'fresh' ? 'bg-green-50' : 'bg-blue-50'}`}>
-                            {(() => {
-                                const Icon = getProductIcon(product.name);
-                                return <Icon className={`w-5 h-5 ${product.type === 'fresh' ? 'text-green-600' : 'text-blue-600'}`}/>;
-                            })()}
+                          <div className={`w-full h-full flex items-center justify-center ${
+                            product.type === 'fresh' ? 'bg-green-50' :
+                            product.type === 'frozen' ? 'bg-blue-50' :
+                            'bg-yellow-50'
+                          }`}>
+                            {(() => { 
+                                const IconOrSrc = getProductIcon(product.name);
+                                if (typeof IconOrSrc === 'string') {
+                                    return <img src={IconOrSrc} alt={product.name} className="w-8 h-8 object-contain" />;
+                                }
+                                return <IconOrSrc className={`w-6 h-6 ${
+                                  product.type === 'fresh' ? 'text-green-600' :
+                                  product.type === 'frozen' ? 'text-blue-600' :
+                                  'text-yellow-600'
+                                }`}/>;
+                            })()} 
                           </div>
                         )}
                       </div>
@@ -89,14 +109,18 @@ const Calendar = () => {
           </div>
         </div>
         
-        <div className="mt-8 flex items-center justify-center gap-6 text-sm text-gray-600">
+        <div className="mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-gray-600">
             <div className="flex items-center gap-2" title="Includes fruits and vegetables">
-                <Leaf className="w-5 h-5 text-green-600" />
+                <Leaf className="w-6 h-6 text-green-600" />
                 <span>Fresh Product Season</span>
             </div>
             <div className="flex items-center gap-2">
-                <Snowflake className="w-5 h-5 text-blue-600" />
-                <span>Frozen (Year-Round)</span>
+                <Snowflake className="w-6 h-6 text-blue-600" />
+                <span>Frozen Products (Year-Round)</span>
+            </div>
+            <div className="flex items-center gap-2">
+                <Package className="w-6 h-6 text-yellow-600" />
+                <span>Pickled Products (Year-Round)</span>
             </div>
         </div>
 

@@ -1,4 +1,4 @@
-import { Facebook, Instagram, Linkedin, Mail, MapPin } from "lucide-react";
+import { Facebook, Instagram, Linkedin, Mail, MapPin, Phone } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useHashLink } from "@/hooks/useHashLink";
 
@@ -53,6 +53,13 @@ const Footer = () => {
               <div className="flex items-start gap-3">
                 <Mail className="h-5 w-5 mt-1 shrink-0 text-green-200" />
                 <a href="mailto:info@sochi-agricultural.com" className="hover:text-white transition-colors">info@sochi-agricultural.com</a>
+              </div>
+              <div className="flex items-start gap-3">
+                <Phone className="h-5 w-5 mt-1 shrink-0 text-green-200" />
+                <div>
+                  <a href="tel:+2034046403" className="block hover:text-white transition-colors">+20 34046403</a>
+                  <a href="https://wa.me/201112409921" target="_blank" rel="noopener noreferrer" className="block hover:text-white transition-colors">+20 111 240 9921 (WhatsApp)</a>
+                </div>
               </div>
             </div>
           </div>

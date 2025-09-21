@@ -1,4 +1,4 @@
-import { Mail, MapPin, Facebook, Instagram, Linkedin } from "lucide-react";
+import { Mail, MapPin, Facebook, Instagram, Linkedin, Phone } from "lucide-react";
 
 const TopBar = () => {
   return (
@@ -10,6 +10,7 @@ const TopBar = () => {
             <MapPin className="h-4 w-4" />
             <span>Smouha - Alexandria, Egypt</span>
           </div>
+         
         </div>
 
         {/* Email Info - Centered */}

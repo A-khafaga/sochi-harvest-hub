@@ -4,8 +4,11 @@ import { Menu, X, Search } from "lucide-react";
 import { Link } from "react-router-dom";
 import TopBar from "./TopBar";
 import { useHashLink } from "@/hooks/useHashLink";
+import { useAnimation } from "@/hooks/useAnimation";
 
 // Product images for mega menu
+import Snowfall from "./Snowfall";
+
 import orangeImage from "@/assets/oranges.jpg";
 import strawberryImage from "@/assets/strawberry.jpg";
 import grapesImage from "@/assets/grapes.jpg";
@@ -22,6 +25,7 @@ const Header = () => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
 
+  const animationKey = useAnimation(activeTab);
   const handleHashLink = useHashLink();
 
   const navItems = [
@@ -134,7 +138,10 @@ const Header = () => {
                   </div>
                   
                   {/* Tab Content */}
-                  <div className="p-6 max-h-[60vh] overflow-y-auto">
+                  <div className="relative p-6 max-h-[60vh] overflow-y-auto">
+                    {/* Animation Layer */}
+                    {activeTab === 'frozen' && <Snowfall key={animationKey} />}
+
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                       {(() => {
                         const productsToDisplay =

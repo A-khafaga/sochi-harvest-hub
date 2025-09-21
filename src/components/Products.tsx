@@ -1,5 +1,5 @@
 import potatoImage from "@/assets/potato.jpg";
-import strawberryImage from "@/assets/strawberry.jpg";
+import strawberryImage from "@/assets/Frozen-strawberry.png";
 import grapesImage from "@/assets/grapes.jpg";
 import mandarinesImage from "@/assets/mandarines.jpg";
 import orangesImage from "@/assets/oranges.jpg";
@@ -8,8 +8,8 @@ import whitegrapes from "@/assets/5.jpg";
 
 const Products = () => {
   const products = [
+    { name: "Frozen STRAWBERRY", image: strawberryImage },
     { name: "SWEET POTATO", image: potatoImage },
-    { name: "STRAWBERRY", image: strawberryImage },
     { name: "RED GRAPES", image: grapesImage },
     { name: "WHITE GRAPES", image: whitegrapes },
     { name: "MANDARINES", image: mandarinesImage },
@@ -28,7 +28,7 @@ const Products = () => {
             Featured Products
           </h2>
           <p className="text-gray-600 max-w-3xl mx-auto mb-10 md:mb-12 text-sm md:text-base">
-            SUCHI Agricultural is dedicated to growing with excellence and
+            Sochi Agricultural is dedicated to growing with excellence and
             serving you nature's very best, fresh to your table.
           </p>
 
