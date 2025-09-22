@@ -109,8 +109,8 @@ const Header = () => {
     <>
       {/* The link tag below will be hoisted to the document head by React */}
       <TopBar />
-      <header className="bg-white shadow-sm border-b">
-      <div className="px-4 h-20 md:h-[150px] flex items-center justify-between">
+      <header className="bg-gray-100">
+      <div className="container mx-auto px-4 h-20 md:h-[150px] flex items-center justify-between bg-white shadow-sm border-b">
         {/* Left: Logo */}
         <div className="flex items-center">
           <Link to="/" className="flex items-center gap-2">

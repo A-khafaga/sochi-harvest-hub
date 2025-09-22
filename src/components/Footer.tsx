@@ -5,8 +5,8 @@ import { useHashLink } from "@/hooks/useHashLink";
 const Footer = () => {
   const handleHashLink = useHashLink();
   return (
-    <footer className="bg-green-600 text-white py-16">
-      <div className="container mx-auto px-4">
+    <footer className="bg-gray-100">
+      <div className="container mx-auto px-4 bg-green-600 text-white py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
           {/* About Section */}
           <div>
@@ -48,11 +48,14 @@ const Footer = () => {
             <div className="space-y-4 text-green-100">
               <div className="flex items-start gap-3">
                 <MapPin className="h-5 w-5 mt-1 shrink-0 text-green-200" />
-                <span>Smouha - Alexandria, Egypt</span>
+                <span>Cairo Alexandria Agricultural Road, Pharma City 3 Compound, El-Narges Building, Office 104, Alexandria, Egypt</span>
               </div>
               <div className="flex items-start gap-3">
                 <Mail className="h-5 w-5 mt-1 shrink-0 text-green-200" />
-                <a href="mailto:info@sochi-agricultural.com" className="hover:text-white transition-colors">info@sochi-agricultural.com</a>
+                <div>
+                  <a href="mailto:Export@sochi-agricultural.com" className="block hover:text-white transition-colors">Export@sochi-agricultural.com</a>
+                  <a href="mailto:info@sochi-agricultural.com" className="block hover:text-white transition-colors">info@sochi-agricultural.com</a>
+                </div>
               </div>
               <div className="flex items-start gap-3">
                 <Phone className="h-5 w-5 mt-1 shrink-0 text-green-200" />

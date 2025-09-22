@@ -6,8 +6,8 @@ const About = () => {
   return (
     <>
       {/* Vision, Mission, Values Section */}
-<section className="bg-green-600 py-20 ">
-  <div className="px-4">
+<section>
+  <div className="container mx-auto px-4 bg-green-600 py-20">
     <div className="grid md:grid-cols-3 gap-16 text-white ">
       <div className="text-center pb-12 md:pb-0 border-b-4 md:border-b-0 md:border-r-4 border-white/50 md:pr-8">
         <div className="flex justify-center mb-6">
@@ -49,8 +49,8 @@ const About = () => {
 </section>
 
       {/* Who We Are + Core Values (combined with shared background) */}
-      <section id="about" className="py-16 bg-center bg-cover" style={{ backgroundImage: `url(${whoBg})` }}>
-        <div className="px-4">
+      <section id="about">
+        <div className="container mx-auto px-4 py-16 bg-center bg-cover" style={{ backgroundImage: `url(${whoBg})` }}>
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
               <h2 className="text-4xl font-bold text-gray-800 mb-6">Who We Are</h2>
@@ -112,9 +112,9 @@ const About = () => {
       </section>
 
       {/* Why Choose Us Section */}
-      <section className="bg-gradient-to-b from-white to-green-50 py-16">
-        <div className="px-4">
-          <h3 className="text-3xl font-bold text-gray-800 mb-10">Why Choose Us</h3>
+      <section>
+        <div className="container mx-auto px-4 bg-gradient-to-b from-white to-green-50 py-16">
+          <h3 className="text-3xl font-bold text-gray-800 mb-10 text-center">Why Choose Us</h3>
           <div className="grid gap-6 md:grid-cols-2">
             <div className="flex items-start gap-4 rounded-xl border border-green-100 bg-white p-6 shadow-sm">
               <div className="mt-1 rounded-full bg-green-50 p-3 text-green-700">

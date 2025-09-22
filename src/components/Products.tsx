@@ -18,7 +18,7 @@ const Products = () => {
 
   return (
     <section id="products" className="bg-white py-16">
-      <div className="px-4">
+      <div className="container mx-auto px-4">
         {/* Featured Products Section */}
         <div className="text-center mb-16 md:mb-20">
           <h2

@@ -2,8 +2,8 @@ import { Mail, MapPin, Facebook, Instagram, Linkedin, Phone } from "lucide-react
 
 const TopBar = () => {
   return (
-    <div className="bg-green-800 text-white py-2 text-sm">
-      <div className="px-4 flex flex-col md:flex-row justify-between items-center">
+    <div className="bg-gray-100">
+      <div className="container mx-auto px-4 flex flex-col md:flex-row justify-between items-center bg-green-800 text-white py-2 text-sm">
         {/* Contact Info */}
         <div className="flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-6 mb-2 md:mb-0">
           <div className="flex items-center space-x-2">
