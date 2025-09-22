@@ -11,19 +11,28 @@ import grapesIcon from '@/assets/01.png';
 import orangeIcon from '@/assets/02.png';
 import mandarinIcon from '@/assets/03.png';
 import sweetPotatoIcon from '@/assets/04.png';
+import carrotIcon from '@/assets/Carrot.png';
+import peachIcon from '@/assets/peach.png';
+import greenBeansIcon from '@/assets/Green_beans.png';
+import lettuceIcon from '@/assets/lettuce.png';
+import capsicumIcon from '@/assets/Capsicum.png';
+import eggplantIcon from '@/assets/eggplant.png';
 
 const productAvailability = [
-  { name: "Strawberry (Fresh)", months: [1, 2, 3, 4], type: 'fresh' }, // Feb - May
-  { name: "Grapes (Red & White)", months: [5, 6, 7, 8, 9], type: 'fresh' }, // Jun - Oct
-  { name: "Orange", months: [0, 1, 10, 11], type: 'fresh' }, // Nov - Mar
-  { name: "Mandarin", months: [0, 1, 10, 11], type: 'fresh' }, // Nov - Mar
-  { name: "Pomegranates", months: [8, 9, 10], type: 'fresh' }, // Sep - Nov
-  { name: "Mango", months: [5, 6, 7], type: 'fresh' }, // Jun - Aug
-  { name: "Sweet Potatoes", months: [8, 9, 10, 11], type: 'fresh' }, // Sep - Dec
-  { name: "Artichokes", months: [2, 3, 4], type: 'fresh' }, // Mar - May
-  { name: "Onions", months: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], type: 'fresh' },
-  { name: "Garlic", months: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], type: 'fresh' },
-  { name: "Potatoes", months: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], type: 'fresh' },
+  // Note: Months are 0-indexed (0 = Jan, 11 = Dec)
+  { name: "Grapes", months: [4, 5, 6], type: 'fresh' },
+  { name: "Strawberry", months: [0, 1, 2, 3, 4, 10, 11], type: 'fresh' },
+  { name: "Lettuce", months: [0, 1, 2, 9, 10, 11], type: 'fresh' },
+  { name: "Potatoes", months: [0, 1, 2, 6, 7, 8, 9, 10, 11], type: 'fresh' },
+  { name: "Pomegranates", months: [7, 8, 9, 10], type: 'fresh' },
+  { name: "Capsicum", months: [0, 1, 2, 3, 9, 10, 11], type: 'fresh' },
+  { name: "Carrot", months: [0, 1, 2, 11], type: 'fresh' },
+  { name: "Onions", months: [0, 1, 2, 3, 4, 10, 11], type: 'fresh' },
+  { name: "Barhi Dates", months: [7, 8], type: 'fresh' },
+  { name: "Green Beans", months: [0, 10, 11], type: 'fresh' },
+  { name: "Garlic", months: [1, 2, 3], type: 'fresh' },
+  { name: "Eggplant", months: [6, 7, 8, 9, 10], type: 'fresh' },
+  { name: "Peach", months: [3, 4], type: 'fresh' },
   { name: "All Frozen Products", months: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], type: 'frozen' },
   { name: "All Pickled Products", months: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], type: 'pickled' },
 ];
@@ -31,17 +40,25 @@ const productAvailability = [
 const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
 const productIcons: { [key: string]: ElementType<LucideProps> | string } = {
-    grape: grapesIcon,
-    orange: orangeIcon,
-    mandarin: mandarinIcon,
+    grape: grapesIcon, // This will match "Grapes"
     strawberry: strawberryIcon,
     pomegranate: pomegranateIcon,
-    mango: mangoIcon,
-    'sweet potato': sweetPotatoIcon,
-    artichoke: artichokeIcon,
     onion: onionIcon,
     garlic: garlicIcon,
     potato: potatoIcon,
+    lettuce: lettuceIcon,
+    capsicum: capsicumIcon,
+    carrot: carrotIcon,
+    barhi: Leaf,
+    'green bean': greenBeansIcon,
+    eggplant: eggplantIcon,
+    peach: peachIcon,
+    // Icons for products that were removed from the list but might be added back
+    orange: orangeIcon,
+    mandarin: mandarinIcon,
+    mango: mangoIcon,
+    'sweet potato': sweetPotatoIcon,
+    artichoke: artichokeIcon,
     frozen: Snowflake,
     pickled: Package,
 };
@@ -55,6 +72,8 @@ const getProductIcon = (productName: string): ElementType<LucideProps> | string 
 };
 
 const Calendar = () => {
+  const highlightedMonths = [4, 5, 6]; // May, June, July
+
   return (
     <section id="calendar" className="py-16 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4">
@@ -71,8 +90,10 @@ const Calendar = () => {
               {/* Header Row */}
               <div className="grid grid-cols-[minmax(180px,1.5fr)_repeat(12,1fr)] bg-green-600 text-white font-bold text-sm uppercase tracking-wider">
                 <div className="p-4 text-left">Product</div>
-                {months.map(month => (
-                  <div key={month} className="p-4 text-center border-l border-green-700/50">{month}</div>
+                {months.map((month, monthIdx) => (
+                  <div key={month} className={`p-4 text-center border-l border-green-700/50 ${
+                    highlightedMonths.includes(monthIdx) ? 'bg-gray-500' : ''
+                  }`}>{month}</div>
                 ))}
               </div>
 
@@ -84,8 +105,10 @@ const Calendar = () => {
                       {product.name}
                     </div>
                     {months.map((_, monthIdx) => (
-                      <div key={monthIdx} className="flex items-center justify-center border-l border-gray-200">
-                        {product.months.includes(monthIdx) && (
+                      <div key={monthIdx} className={`flex items-center justify-center border-l border-gray-200 ${
+                        highlightedMonths.includes(monthIdx) && !product.months.includes(monthIdx) ? 'bg-gray-200/50' : ''
+                      }`}>
+                        {product.months.includes(monthIdx) ? (
                           <div className={`w-full h-full flex items-center justify-center ${
                             product.type === 'fresh' ? 'bg-green-50' :
                             product.type === 'frozen' ? 'bg-blue-50' :
@@ -103,7 +126,7 @@ const Calendar = () => {
                                 }`}/>;
                             })()} 
                           </div>
-                        )}
+                        ) : null}
                       </div>
                     ))}
                   </div>
