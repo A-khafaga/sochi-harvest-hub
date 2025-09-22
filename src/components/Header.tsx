@@ -1,20 +1,38 @@
 import { useState, useMemo } from "react";
 import { Button } from "@/components/ui/button";
-import { Menu, X, Search } from "lucide-react";
+import { Menu, X, Search, LucideProps } from "lucide-react";
 import { Link } from "react-router-dom";
 import TopBar from "./TopBar";
 import { useHashLink } from "@/hooks/useHashLink";
 import { useAnimation } from "@/hooks/useAnimation";
 
 // Product images for mega menu
-import Snowfall from "./Snowfall";
-
-import orangeImage from "@/assets/oranges.jpg";
-import strawberryImage from "@/assets/strawberry.jpg";
-import grapesImage from "@/assets/grapes.jpg";
-import mandarinImage from "@/assets/mandarines.jpg";
-import potatoImage from "@/assets/potato.jpg";
+import Snowfall from "./Snowfall"; 
 import genericProduceImage from "@/assets/fresh-fruits-mix.jpg"; // Fallback
+
+// Dynamically import all images from the new products folder
+const productImages = import.meta.glob<{ default: string }>('/src/assets/products/*.{jpg,jpeg,png,gif,svg}', { eager: true });
+type ProductLinkProps = {
+  name: string;
+  type: 'fresh' | 'frozen' | 'pickled';
+  imageUrl: string;
+  onClick: () => void;
+};
+
+const ProductLink = ({ name, type, imageUrl, onClick }: ProductLinkProps) => (
+  <Link
+    key={name}
+    to={`/products/${type}/${name.toLowerCase().replace(/\s+/g, "-")}`}
+    className="group relative block rounded-md h-24 flex items-center justify-center p-2 text-center overflow-hidden bg-cover bg-center"
+    style={{ backgroundImage: `url(${imageUrl})` }}
+    onClick={onClick}
+  >
+    <div className="absolute inset-0 bg-black/40 group-hover:bg-black/60 transition-colors duration-300"></div>
+    <span className="relative z-10 text-white font-semibold text-sm leading-tight">
+      {name}
+    </span>
+  </Link>
+);
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -45,23 +63,16 @@ const Header = () => {
     "Cucumber"
   ];
 
-  const productImageMap: Record<string, string> = {
-    orange: orangeImage,
-    strawberry: strawberryImage,
-    grapes: grapesImage,
-    mandarin: mandarinImage,
-    "sweet potatoes": potatoImage,
-    potatoes: potatoImage,
-    pomegranates: genericProduceImage,
-    mango: genericProduceImage,
-    "pomegranates kernels": genericProduceImage,
-    apricots: genericProduceImage,
-    figs: genericProduceImage,
-    peach: genericProduceImage,
-    blueberries: genericProduceImage,
+  const getProductImage = (name: string) => {
+    const imageName = name.toLowerCase().replace(/\s+/g, "-");
+    // Find a matching image file regardless of its extension (jpg, png, etc.)
+    const imagePath = Object.keys(productImages).find(path =>
+      path.toLowerCase().includes(`/${imageName}.`)
+    );
+
+    // If a specific image is found, use it; otherwise, use the generic fallback.
+    return imagePath ? productImages[imagePath].default : genericProduceImage;
   };
-  
-  const getProductImage = (name: string) => productImageMap[name.toLowerCase()] || genericProduceImage;
 
   const allProducts = useMemo(() => [
     ...freshProducts.map(name => ({ name, type: 'fresh' as const })),
@@ -143,28 +154,17 @@ const Header = () => {
                     {activeTab === 'frozen' && <Snowfall key={animationKey} />}
 
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                      {(() => {
-                        const productsToDisplay =
-                          activeTab === 'fresh' ? freshProducts :
-                          activeTab === 'frozen' ? frozenProducts :
-                          pickledProducts;
-
-                        return productsToDisplay.map((name) => (
-                          <Link 
-                            key={name}
-                            to={`/products/${activeTab}/${name.toLowerCase().replace(/\s+/g, "-")}`} 
-                            className="group relative block rounded-md h-24 flex items-center justify-center p-2 text-center overflow-hidden bg-cover bg-center"
-                            style={{ backgroundImage: `url(${getProductImage(name)})` }}
-                            onClick={() => setIsProductMenuOpen(false)}
-                          >
-                            <div className="absolute inset-0 bg-black/40 group-hover:bg-black/60 transition-colors duration-300"></div>
-                            <span className="relative z-10 text-white font-semibold text-sm leading-tight">
-                              {name}
-                            </span>
-                          </Link>
-                        ));
-                      })()}
+                      {(activeTab === 'fresh' ? freshProducts : activeTab === 'frozen' ? frozenProducts : pickledProducts).map((name) => (
+                        <ProductLink
+                          key={name}
+                          name={name}
+                          type={activeTab}
+                          imageUrl={getProductImage(name)}
+                          onClick={() => setIsProductMenuOpen(false)}
+                        />
+                      ))}
                     </div>
+
                     {(activeTab === 'fresh' && freshProducts.length === 0) && (
                         <p className="col-span-full text-center text-gray-500 py-8">No fresh products available at the moment.</p>
                     )}
