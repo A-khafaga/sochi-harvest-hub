@@ -2,7 +2,7 @@ import potatoImage from "@/assets/broccoli.jpg";
 import strawberryImage from "@/assets/Frozen-strawberry.png";
 import grapesImage from "@/assets/grapes.jpg";
 import mandarinesImage from "@/assets/Cauliflower.png";
-import orangesImage from "@/assets/oranges.jpg";
+import orangesImage from "@/assets/orange.png";
 import worldMapImage from "@/assets/world-map-markets.jpg";
 import whitegrapes from "@/assets/Artichoke.jpg";
 

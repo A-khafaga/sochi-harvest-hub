@@ -10,7 +10,6 @@ import { useAnimation } from "@/hooks/useAnimation";
 import Snowfall from "./Snowfall"; 
 
 // Preload a key image to improve perceived performance of the mega menu
-import orangeImageUrl from "@/assets/products/Orange.jpg";
 import genericProduceImage from "@/assets/fresh-fruits-mix.jpg"; // Fallback
 
 // Dynamically import all images from the new products folder
