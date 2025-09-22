@@ -10,7 +10,7 @@ import { useAnimation } from "@/hooks/useAnimation";
 import Snowfall from "./Snowfall"; 
 
 // Preload a key image to improve perceived performance of the mega menu
-import orangeImageUrl from "@/assets/products/orange.jpg";
+import orangeImageUrl from "@/assets/products/Orange.jpg";
 import genericProduceImage from "@/assets/fresh-fruits-mix.jpg"; // Fallback
 
 // Dynamically import all images from the new products folder
@@ -108,11 +108,7 @@ const Header = () => {
   };
   return (
     <>
-      {/* Preload key images for faster LCP and menu interaction */}
-      <head>
-        <link rel="preload" as="image" href={orangeImageUrl} />
-      </head>
-
+      {/* The link tag below will be hoisted to the document head by React */}
       <TopBar />
       <header className="bg-white shadow-sm border-b">
       <div className="px-4 h-20 md:h-[150px] flex items-center justify-between">
