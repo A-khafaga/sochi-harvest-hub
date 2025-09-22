@@ -1,19 +1,19 @@
-import potatoImage from "@/assets/potato.jpg";
+import potatoImage from "@/assets/broccoli.jpg";
 import strawberryImage from "@/assets/Frozen-strawberry.png";
 import grapesImage from "@/assets/grapes.jpg";
-import mandarinesImage from "@/assets/mandarines.jpg";
+import mandarinesImage from "@/assets/Cauliflower.png";
 import orangesImage from "@/assets/oranges.jpg";
 import worldMapImage from "@/assets/world-map-markets.jpg";
-import whitegrapes from "@/assets/5.jpg";
+import whitegrapes from "@/assets/Artichoke.jpg";
 
 const Products = () => {
   const products = [
     { name: "Frozen STRAWBERRY", image: strawberryImage },
-    { name: "SWEET POTATO", image: potatoImage },
-    { name: "RED GRAPES", image: grapesImage },
-    { name: "WHITE GRAPES", image: whitegrapes },
-    { name: "MANDARINES", image: mandarinesImage },
-    { name: "ORANGES", image: orangesImage },
+    { name: "Broccoli ", image: potatoImage },
+    { name: "Green Beans", image: grapesImage },
+    { name: "Artichoke", image: whitegrapes },
+    { name: "Cauliflower", image: mandarinesImage },
+    { name: "Mixed vegetables", image: orangesImage },
   ];
 
   return (

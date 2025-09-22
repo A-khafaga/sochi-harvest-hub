@@ -8,6 +8,9 @@ import { useAnimation } from "@/hooks/useAnimation";
 
 // Product images for mega menu
 import Snowfall from "./Snowfall"; 
+
+// Preload a key image to improve perceived performance of the mega menu
+import orangeImageUrl from "@/assets/products/orange.jpg";
 import genericProduceImage from "@/assets/fresh-fruits-mix.jpg"; // Fallback
 
 // Dynamically import all images from the new products folder
@@ -28,6 +31,10 @@ const ProductLink = ({ name, type, imageUrl, onClick }: ProductLinkProps) => (
     onClick={onClick}
   >
     <div className="absolute inset-0 bg-black/40 group-hover:bg-black/60 transition-colors duration-300"></div>
+    {/* Add a frost effect for frozen products */}
+    {type === 'frozen' && (
+      <div className="absolute inset-0 bg-white/20 backdrop-saturate-50"></div>
+    )}
     <span className="relative z-10 text-white font-semibold text-sm leading-tight">
       {name}
     </span>
@@ -101,6 +108,11 @@ const Header = () => {
   };
   return (
     <>
+      {/* Preload key images for faster LCP and menu interaction */}
+      <head>
+        <link rel="preload" as="image" href={orangeImageUrl} />
+      </head>
+
       <TopBar />
       <header className="bg-white shadow-sm border-b">
       <div className="px-4 h-20 md:h-[150px] flex items-center justify-between">

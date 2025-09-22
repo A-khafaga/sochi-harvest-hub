@@ -1,4 +1,4 @@
-import { Grape, Citrus, Apple, Carrot, Leaf, Snowflake, LucideProps, Package } from 'lucide-react';
+import { Leaf, Snowflake, LucideProps, Package } from 'lucide-react';
 import { ElementType } from 'react';
 import pomegranateIcon from '@/assets/aa-removebg-preview (1).png';
 import strawberryIcon from '@/assets/strawberry-4-128.ico';
@@ -7,6 +7,10 @@ import onionIcon from '@/assets/11.png';
 import artichokeIcon from '@/assets/22.png';
 import mangoIcon from '@/assets/33.png';
 import potatoIcon from '@/assets/44.png';
+import grapesIcon from '@/assets/01.png';
+import orangeIcon from '@/assets/02.png';
+import mandarinIcon from '@/assets/03.png';
+import sweetPotatoIcon from '@/assets/04.png';
 
 const productAvailability = [
   { name: "Strawberry (Fresh)", months: [1, 2, 3, 4], type: 'fresh' }, // Feb - May
@@ -27,13 +31,13 @@ const productAvailability = [
 const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
 const productIcons: { [key: string]: ElementType<LucideProps> | string } = {
-    grape: Grape,
-    orange: Citrus,
-    mandarin: Citrus,
+    grape: grapesIcon,
+    orange: orangeIcon,
+    mandarin: mandarinIcon,
     strawberry: strawberryIcon,
     pomegranate: pomegranateIcon,
     mango: mangoIcon,
-    'sweet potato': Carrot,
+    'sweet potato': sweetPotatoIcon,
     artichoke: artichokeIcon,
     onion: onionIcon,
     garlic: garlicIcon,
