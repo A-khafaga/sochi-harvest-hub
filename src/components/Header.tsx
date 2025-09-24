@@ -11,29 +11,30 @@ import Snowfall from "./Snowfall";
 
 // Preload a key image to improve perceived performance of the mega menu
 import genericProduceImage from "@/assets/fresh-fruits-mix.jpg"; // Fallback
+// Specific overrides requested
+import pomegranatesImg from "@/assets/products/Pomegranates.jpg";
+import icebergImg from "@/assets/products/Iceberg.png";
 
 // Dynamically import all images from the new products folder
 const productImages = import.meta.glob<{ default: string }>('/src/assets/products/*.{jpg,jpeg,png,gif,svg}', { eager: true });
 type ProductLinkProps = {
   name: string;
+  slug: string;
   type: 'fresh' | 'frozen' | 'pickled';
   imageUrl: string;
   onClick: () => void;
 };
 
-const ProductLink = ({ name, type, imageUrl, onClick }: ProductLinkProps) => (
+const ProductLink = ({ name, slug, type, imageUrl, onClick }: ProductLinkProps) => (
   <Link
     key={name}
-    to={`/products/${type}/${name.toLowerCase().replace(/\s+/g, "-")}`}
+    to={`/products/${type}/${slug}`}
     className="group relative block rounded-md h-24 flex items-center justify-center p-2 text-center overflow-hidden bg-cover bg-center"
     style={{ backgroundImage: `url(${imageUrl})` }}
     onClick={onClick}
   >
     <div className="absolute inset-0 bg-black/40 group-hover:bg-black/60 transition-colors duration-300"></div>
-    {/* Add a frost effect for frozen products */}
-    {type === 'frozen' && (
-      <div className="absolute inset-0 bg-white/20 backdrop-saturate-50"></div>
-    )}
+    {/* Snowfall effect remains handled at the menu level; no frost overlay on items */}
     <span className="relative z-10 text-white font-semibold text-sm leading-tight">
       {name}
     </span>
@@ -60,30 +61,81 @@ const Header = () => {
   ];
 
   const freshProducts = [
-    "Orange","Iceberg","Lime","Lemon","Strawberry","Mango","Pomegranates","Guava","Grapes","Mandarin","Sweet Potatoes","Artichokes","Carrots","Garlics","Onions","Eggplant","Capsicum","Potatoes"
+    { name: "Strawberries", slug: "strawberries" },
+    { name: "Mango", slug: "mango" },
+    { name: "Pomegranate", slug: "pomegranate" },
+    { name: "Guava", slug: "guava" },
+    { name: "Oranges", slug: "orange" },
+    { name: "Grapes", slug: "grapes" },
+    { name: "Mandarin", slug: "mandarin" },
+    { name: "Lime", slug: "lime" },
+    { name: "Sweet Potatoes", slug: "sweet-potatoes" },
+    { name: "Artichokes", slug: "artichoke" },
+    { name: "Carrots", slug: "carrots" },
+    { name: "Garlics", slug: "garlic" },
+    { name: "Onions", slug: "onions" },
+    { name: "Iceberg Lettuce", slug: "iceberg-lettuce" },
   ];
   const frozenProducts = [
-    "Strawberry","Mango","Apricots","Figs","Peach","Blueberries","Pomegranates Kernels","Artichokes","Green Beans","Broccoli Florets","Cauliflower Florets","Green Peas","Mixed Veggies","Carrots","Onions","Pepper","Sweet Potatoes","Okra","Spinach","Molokhia"
+    { name: "Strawberry", slug: "strawberry" },
+    { name: "Mango", slug: "mango" },
+    { name: "Apricots", slug: "apricots" },
+    { name: "Figs", slug: "figs" },
+    { name: "Peach", slug: "peach" },
+    { name: "Blueberries", slug: "blueberries" },
+    { name: "Pomegranates Kernels", slug: "pomegranate-kernels" },
+    { name: "Artichokes", slug: "artichoke" },
+    { name: "Green Beans", slug: "green-beans" },
+    { name: "Broccoli Florets", slug: "broccoli" },
+    { name: "Cauliflower Florets", slug: "cauliflower" },
+    { name: "Green Peas", slug: "green-peas" },
+    { name: "Mixed Veggies", slug: "mixed-vegetables" },
+    { name: "Carrots", slug: "carrots" },
+    { name: "Onions", slug: "onions" },
+    { name: "Pepper", slug: "pepper" },
+    { name: "Sweet Potatoes", slug: "sweet-potatoes" },
+    { name: "Okra", slug: "okra" },
+    { name: "Spinach", slug: "spinach" },
+    { name: "Molokhia", slug: "molokhia" },
   ];
   const pickledProducts = [
-    "Cucumber"
+    { name: "Cucumber", slug: "cucumber" }
   ];
 
+  const imageOverrides: Record<string, string> = {
+    "Pomegranate": pomegranatesImg,
+    "Iceberg Lettuce": icebergImg,
+  };
+
   const getProductImage = (name: string) => {
-    const imageName = name.toLowerCase().replace(/\s+/g, "-");
+    if (imageOverrides[name]) return imageOverrides[name];
+    const base = name.toLowerCase().replace(/\s+/g, "-");
+    const candidates = [
+      base,
+      // Common plural → singular fallbacks
+      base.endsWith("ies") ? base.slice(0, -3) + "y" : "",
+      base.endsWith("es") ? base.slice(0, -2) : "",
+      base.endsWith("s") ? base.slice(0, -1) : "",
+      // Singular → plural heuristics to match files like pomegranates.jpg
+      base + "s",
+      base.endsWith("y") ? base.slice(0, -1) + "ies" : "",
+      // First word fallback (e.g., Iceberg Lettuce -> iceberg)
+      base.split("-")[0],
+    ].filter(Boolean) as string[];
     // Find a matching image file regardless of its extension (jpg, png, etc.)
-    const imagePath = Object.keys(productImages).find(path =>
-      path.toLowerCase().includes(`/${imageName}.`)
-    );
+    const imagePath = Object.keys(productImages).find((path) => {
+      const lower = path.toLowerCase();
+      return candidates.some((c) => lower.includes(`/${c}.`));
+    });
 
     // If a specific image is found, use it; otherwise, use the generic fallback.
     return imagePath ? productImages[imagePath].default : genericProduceImage;
   };
 
   const allProducts = useMemo(() => [
-    ...freshProducts.map(name => ({ name, type: 'fresh' as const })),
-    ...frozenProducts.map(name => ({ name, type: 'frozen' as const })),
-    ...pickledProducts.map(name => ({ name, type: 'pickled' as const })),
+    ...freshProducts.map(p => ({ name: p.name, slug: p.slug, type: 'fresh' as const })),
+    ...frozenProducts.map(p => ({ name: p.name, slug: p.slug, type: 'frozen' as const })),
+    ...pickledProducts.map(p => ({ name: p.name, slug: p.slug, type: 'pickled' as const })),
   ], []);
 
   const searchResults = useMemo(() => {
@@ -161,12 +213,13 @@ const Header = () => {
                     {activeTab === 'frozen' && <Snowfall key={animationKey} />}
 
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                      {(activeTab === 'fresh' ? freshProducts : activeTab === 'frozen' ? frozenProducts : pickledProducts).map((name) => (
+                      {(activeTab === 'fresh' ? freshProducts : activeTab === 'frozen' ? frozenProducts : pickledProducts).map((p) => (
                         <ProductLink
-                          key={name}
-                          name={name}
+                          key={p.name}
+                          name={p.name}
+                          slug={p.slug}
                           type={activeTab}
-                          imageUrl={getProductImage(name)}
+                          imageUrl={getProductImage(p.name)}
                           onClick={() => setIsProductMenuOpen(false)}
                         />
                       ))}

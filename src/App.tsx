@@ -10,6 +10,7 @@ import Index from "@/pages/Index";
 import NotFound from "@/pages/NotFound";
 import Product from "@/pages/Product";
 import CalendarPage from "@/pages/CalendarPage";
+import CategoryPage from "@/pages/CategoryPage";
 
 const queryClient = new QueryClient();
 
@@ -24,6 +25,7 @@ const App = () => (
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/calendar" element={<CalendarPage />} />
+            <Route path="/products/:category" element={<CategoryPage />} />
             <Route path="/products/:category/:slug" element={<Product />} />
             <Route path="*" element={<NotFound />} />
           </Routes>

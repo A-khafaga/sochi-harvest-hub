@@ -1,20 +1,9 @@
-import potatoImage from "@/assets/broccoli.jpg";
-import strawberryImage from "@/assets/Frozen-strawberry.png";
-import grapesImage from "@/assets/grapes.jpg";
-import mandarinesImage from "@/assets/Cauliflower.png";
-import orangesImage from "@/assets/orange.png";
 import worldMapImage from "@/assets/world-map-markets.jpg";
-import whitegrapes from "@/assets/Artichoke.jpg";
+import { featuredProducts } from "@/data/products";
+import { Link } from "react-router-dom";
 
 const Products = () => {
-  const products = [
-    { name: "Frozen STRAWBERRY", image: strawberryImage },
-    { name: "Broccoli ", image: potatoImage },
-    { name: "Green Beans", image: grapesImage },
-    { name: "Artichoke", image: whitegrapes },
-    { name: "Cauliflower", image: mandarinesImage },
-    { name: "Mixed vegetables", image: orangesImage },
-  ];
+  const products = featuredProducts;
 
   return (
     <section id="products" className="bg-white py-16">
@@ -33,15 +22,16 @@ const Products = () => {
           </p>
 
           <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 md:gap-8">
-            {products.map((product, index) => (
-              <div
-                key={`${product.name}-${index}`}
-                className="bg-gray-50 rounded-lg border border-gray-200 shadow-sm overflow-hidden aspect-[3/4] flex flex-col"
+            {products.map((product) => (
+              <Link
+                to={`/products/${product.category}/${product.slug}`}
+                key={product.id}
+                className="bg-gray-50 rounded-lg border border-gray-200 shadow-sm overflow-hidden aspect-[3/4] flex flex-col hover:shadow-md transition-shadow"
               >
                 <div className="h-3/4 flex items-end justify-center p-4">
                   <img
-                    src={product.image}
-                    alt={product.name}
+                    src={product.images[0]?.url}
+                    alt={product.images[0]?.alt || product.name}
                     className="max-w-full max-h-full object-contain drop-shadow-md"
                   />
                 </div>
@@ -53,7 +43,7 @@ const Products = () => {
                     {product.name}
                   </p>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>
