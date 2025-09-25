@@ -63,12 +63,12 @@ const Product = () => {
           <span className="mx-2">/</span>
           <Link to={`/#products`} className="hover:text-green-600">Products</Link>
           <span className="mx-2">/</span>
-          <span className="capitalize">{category === "fresh" ? "fresh" : product.category}</span>
+          <span className="capitalize">{category === "fresh" ? "fresh" : category === "frozen" ? "frozen" : product.category}</span>
           <span className="mx-2">/</span>
           <span className="font-medium text-gray-800">{product.name}</span>
         </nav>
 
-        <h1 className="text-4xl font-bold text-gray-800 mb-8">{product.name}</h1>
+        <h1 className="text-4xl font-bold text-gray-800 mb-8" style={{ fontFamily: "Cinzel, serif" }}>{product.name}</h1>
 
         <div className="grid md:grid-cols-2 gap-10 items-start">
           <div>
@@ -99,20 +99,24 @@ const Product = () => {
             )}
           </div>
           <div>
-            <h2 className="text-2xl font-semibold text-green-700 mb-4 capitalize">{category === "fresh" ? "fresh" : product.category} product</h2>
-            <p className="text-gray-600 mb-6">{product.description}</p>
+            <h2 className="text-2xl font-semibold text-green-700 mb-4 capitalize" style={{ fontFamily: "Cinzel, serif" }}>
+              {category === "fresh" ? "fresh" : category === "frozen" ? "frozen" : product.category} product
+            </h2>
+            <p className="text-gray-600 mb-6 leading-relaxed">{product.description}</p>
 
             {product.specs && (
               <div className="mb-6">
-                <h3 className="text-lg font-semibold text-gray-800 mb-2">Specifications</h3>
-                <ul className="text-gray-700 grid grid-cols-1 sm:grid-cols-2 gap-y-1">
-                  {Object.entries(product.specs).map(([key, value]) => (
-                    <li key={key} className="flex gap-2">
-                      <span className="font-medium">{key}:</span>
-                      <span>{value}</span>
-                    </li>
-                  ))}
-                </ul>
+                <h3 className="text-lg font-semibold text-gray-800 mb-4" style={{ fontFamily: "Cinzel, serif" }}>Specifications</h3>
+                <div className="bg-gray-50 rounded-lg p-4">
+                  <ul className="text-gray-700 space-y-3">
+                    {Object.entries(product.specs).map(([key, value]) => (
+                      <li key={key} className="flex items-start gap-3">
+                        <span className="font-semibold text-gray-800 min-w-[120px]">{key.replace(/_/g, ' ')}:</span>
+                        <span className="text-gray-600">{value}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
             )}
             <Link to="/#contact" className="inline-block bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-md">Contact us</Link>

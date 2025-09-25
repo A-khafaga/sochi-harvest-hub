@@ -1,16 +1,14 @@
 import globalGapImage from "@/assets/cert-globalgap.jpg";
 import smetaImage from "@/assets/cert-smeta.jpg";
-import sedexImage from "@/assets/cert-sedex.jpg";
-import graspImage from "@/assets/cert-grasp.jpg";
-import brcImage from "@/assets/cert-brc.jpg";
+import iso9001Image from "@/assets/ISO9001.png";
+import iso2200Image from "@/assets/ISO2200.png";
 
 const Certificates = () => {
   const certificates = [
     { name: "GLOBALG.A.P.", image: globalGapImage },
-    { name: "GRASP", image: graspImage },
+    { name: "ISO 9001", image: iso9001Image },
+    { name: "ISO 2200", image: iso2200Image },
     { name: "SMETA", image: smetaImage },
-    { name: "SEDEX", image: sedexImage },
-    { name: "BRC", image: brcImage },
   ];
 
   return (
@@ -18,13 +16,13 @@ const Certificates = () => {
       <div className="container mx-auto px-4 text-center">
         <h2 className="text-4xl font-bold text-green-600 mb-16">TRUST CERTIFICATES</h2>
         
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-8 mb-20">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-20 max-w-4xl mx-auto">
           {certificates.map((cert, index) => (
-            <div key={`${cert.name}-${index}`} className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow">
+            <div key={`${cert.name}-${index}`} className="bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow">
               <img 
                 src={cert.image} 
                 alt={cert.name}
-                className="w-full h-24 object-contain mb-4"
+                className="w-full h-20 object-contain mb-3"
               />
               <h3 className="font-bold text-sm text-gray-800">{cert.name}</h3>
             </div>

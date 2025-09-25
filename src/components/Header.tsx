@@ -17,6 +17,9 @@ import icebergImg from "@/assets/products/Iceberg.png";
 
 // Dynamically import all images from the new products folder
 const productImages = import.meta.glob<{ default: string }>('/src/assets/products/*.{jpg,jpeg,png,gif,svg}', { eager: true });
+
+// Dynamically import frozen product images
+const frozenProductImages = import.meta.glob<{ default: string }>('/src/assets/Image_products/Frozen/*.{jpg,jpeg,png,gif,svg}', { eager: true });
 type ProductLinkProps = {
   name: string;
   slug: string;
@@ -79,17 +82,18 @@ const Header = () => {
   const frozenProducts = [
     { name: "Strawberry", slug: "strawberry" },
     { name: "Mango", slug: "mango" },
-    { name: "Apricots", slug: "apricots" },
+    { name: "Apricot", slug: "apricot" },
+    { name: "Artichoke", slug: "artichoke" },
     { name: "Figs", slug: "figs" },
     { name: "Peach", slug: "peach" },
     { name: "Blueberries", slug: "blueberries" },
-    { name: "Pomegranates Kernels", slug: "pomegranate-kernels" },
-    { name: "Artichokes", slug: "artichoke" },
+    { name: "Pomegranate Arils", slug: "pomegranate-arils" },
+    { name: "Guava", slug: "guava" },
     { name: "Green Beans", slug: "green-beans" },
-    { name: "Broccoli Florets", slug: "broccoli" },
-    { name: "Cauliflower Florets", slug: "cauliflower" },
+    { name: "Broccoli Florets", slug: "broccoli-florets" },
+    { name: "Cauliflower Florets", slug: "cauliflower-florets" },
     { name: "Green Peas", slug: "green-peas" },
-    { name: "Mixed Veggies", slug: "mixed-vegetables" },
+    { name: "Mixed Vegetables", slug: "mixed-vegetables" },
     { name: "Carrots", slug: "carrots" },
     { name: "Onions", slug: "onions" },
     { name: "Pepper", slug: "pepper" },
@@ -105,10 +109,19 @@ const Header = () => {
   const imageOverrides: Record<string, string> = {
     "Pomegranate": pomegranatesImg,
     "Iceberg Lettuce": icebergImg,
+    // Frozen product overrides
+    "Pomegranate Arils": "/src/assets/Image_products/Frozen/pomegranate-kernels.jpg",
+    "Mixed Vegetables": "/src/assets/Image_products/Frozen/mixed-vegetables.jpg",
+    "Green Beans": "/src/assets/Image_products/Frozen/green-beans.jpg",
+    "Sweet Potatoes": "/src/assets/Image_products/Frozen/sweet-potatoes.jpg",
   };
 
-  const getProductImage = (name: string) => {
+  const getProductImage = (name: string, type: 'fresh' | 'frozen' | 'pickled' = 'fresh') => {
     if (imageOverrides[name]) return imageOverrides[name];
+    
+    // Use frozen-specific images for frozen products
+    const imageSource = type === 'frozen' ? frozenProductImages : productImages;
+    
     const base = name.toLowerCase().replace(/\s+/g, "-");
     const candidates = [
       base,
@@ -122,14 +135,15 @@ const Header = () => {
       // First word fallback (e.g., Iceberg Lettuce -> iceberg)
       base.split("-")[0],
     ].filter(Boolean) as string[];
+    
     // Find a matching image file regardless of its extension (jpg, png, etc.)
-    const imagePath = Object.keys(productImages).find((path) => {
+    const imagePath = Object.keys(imageSource).find((path) => {
       const lower = path.toLowerCase();
       return candidates.some((c) => lower.includes(`/${c}.`));
     });
 
     // If a specific image is found, use it; otherwise, use the generic fallback.
-    return imagePath ? productImages[imagePath].default : genericProduceImage;
+    return imagePath ? imageSource[imagePath].default : genericProduceImage;
   };
 
   const allProducts = useMemo(() => [
@@ -219,7 +233,7 @@ const Header = () => {
                           name={p.name}
                           slug={p.slug}
                           type={activeTab}
-                          imageUrl={getProductImage(p.name)}
+                          imageUrl={getProductImage(p.name, activeTab)}
                           onClick={() => setIsProductMenuOpen(false)}
                         />
                       ))}
